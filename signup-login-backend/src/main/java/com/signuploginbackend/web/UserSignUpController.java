@@ -1,7 +1,6 @@
 package com.signuploginbackend.web;
 
 import com.signuploginbackend.DTO.UserDTO;
-import com.signuploginbackend.model.Rol;
 import com.signuploginbackend.model.User;
 import com.signuploginbackend.service.UserServiceImpl;
 import org.springframework.http.HttpStatus;

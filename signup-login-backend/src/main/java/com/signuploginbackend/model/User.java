@@ -18,14 +18,14 @@ public class User {
     private long id;
     private String name;
     private String lastName;
-    private String dayOfBirth;
+    private LocalDate dayOfBirth;
     private String email;
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER)
     private Collection<Rol> roles;
 
-    public User(String name, String lastName, String dateOfBirth, String email, String password, Collection<Rol> roles) {
+    public User(String name, String lastName, LocalDate dateOfBirth, String email, String password, Collection<Rol> roles) {
         this.name = name;
         this.lastName = lastName;
         this.dayOfBirth = dateOfBirth;
