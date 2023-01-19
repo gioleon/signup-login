@@ -4,10 +4,8 @@ import com.signuploginbackend.DTO.UserDTO;
 import com.signuploginbackend.model.Rol;
 import com.signuploginbackend.model.User;
 import com.signuploginbackend.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
 
 import java.util.Arrays;
 
@@ -15,7 +13,7 @@ import java.util.Arrays;
 public class UserServiceImpl implements UserService {
     private UserRepository repository;
 
-    public UserServiceImpl(UserRepository repository){
+    public UserServiceImpl(UserRepository repository) {
         this.repository = repository;
     }
 
@@ -25,23 +23,27 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResponseEntity<User> save(UserDTO userDTO) {
-        if(!userExists(userDTO.getEmail())){
-            User user = new User(
-                    userDTO.getName(), userDTO.getLastName(),
-                    userDTO.getDateOfBirth(), userDTO.getEmail(),
-                    userDTO.getPassword(), Arrays.asList(new Rol("ROLE_USER"))
-            );
+    public void save(UserDTO userDTO){
+        User user = new User(
+                userDTO.getName(), userDTO.getLastName(),
+                userDTO.getDateOfBirth(), userDTO.getEmail(),
+                userDTO.getPassword(),
+                Arrays.asList(new Rol(1,"ROLE_USER"))
+        );
 
-            return new ResponseEntity<>(user, HttpStatus.CREATED);
-        }
-
-        return new ResponseEntity<>(new User(), HttpStatus.NO_CONTENT);
-
+        this.repository.save(user);
     }
 
     @Override
     public boolean userExists(String email) {
-        return false;
+
+        boolean userExists = false;
+
+        User user = this.repository.findByEmail(email).orElse(null);
+
+        if (user != null) {
+            userExists = true;
+        }
+        return userExists;
     }
 }

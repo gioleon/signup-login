@@ -6,8 +6,9 @@ import org.springframework.http.ResponseEntity;
 
 public interface UserService {
 
+    void save(UserDTO userDTO);
+
     Iterable<User> findUsers();
-    ResponseEntity save(UserDTO userDTO);
 
     boolean userExists(String email);
 
