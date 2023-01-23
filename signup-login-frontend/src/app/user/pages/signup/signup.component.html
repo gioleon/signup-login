@@ -1,0 +1,78 @@
+<div class="main">
+  <form (ngSubmit)="saveUser()" class="form">
+    <div class="form-item-container">
+      <label for="name" class="label">Name</label>
+      <input
+        type="text"
+        name="name"
+        id="name"
+        placeholder="Name"
+        [(ngModel)]="userDTO.name"
+        class="form-item"
+      />
+    </div>
+
+    <div class="form-item-container">
+      <label for="lastName" class="label">Last name</label>
+      <input
+        type="text"
+        name="lastName"
+        id="lastName"
+        placeholder="Last Name"
+        [(ngModel)]="userDTO.lastName"
+        class="form-item"
+      />
+    </div>
+
+    <div class="form-item-container">
+      <label for="email" class="label">Email</label>
+      <input
+        type="email"
+        name="email"
+        id="email"
+        placeholder="username@yourcompany.com"
+        [(ngModel)]="userDTO.email"
+        class="form-item"
+      />
+    </div>
+    <div class="form-item-container">
+      <label for="password" class="label">Password</label>
+      <p class="password-info">Must have at least 6 characters</p>
+      <input
+        type="password"
+        name="password"
+        id="password"
+        [(ngModel)]="userDTO.password"
+        class="form-item"
+      />
+    </div>
+
+    <div class="form-item-container">
+      <label for="confirm-password" class="label">Confirm password</label>
+      <input
+        type="password"
+        name="confirm-password"
+        id="confirm-password"
+        [(ngModel)]="confirmPassword"
+        class="form-item"
+      />
+    </div>
+
+    <button type="submit" class="form-button">Sign Up</button>
+
+    <div class="terms-info">
+      Al crear la cuenta, aceptas las condiciones de uso y el aviso de
+      privacidad de gio.com
+    </div>
+
+    <hr />
+
+    <div class="already-account terms-info">
+      Already have an account? <a routerLink="/login">Log in</a>
+    </div>
+  </form>
+</div>
+
+<div *ngIf="error">
+  <p>There is already a user with the given email!</p>
+</div>
