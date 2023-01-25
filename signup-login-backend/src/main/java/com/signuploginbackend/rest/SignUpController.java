@@ -1,4 +1,4 @@
-package com.signuploginbackend.web;
+package com.signuploginbackend.rest;
 
 import com.signuploginbackend.DTO.UserDTO;
 import com.signuploginbackend.model.User;
@@ -7,11 +7,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.Arrays;
-
 @RestController
-@RequestMapping("/")
-@CrossOrigin("http:localhost:4200/")
+@RequestMapping("/api/user")
+@CrossOrigin("http://localhost:4200")
 public class UserSignUpController {
     private UserServiceImpl repository;
 
