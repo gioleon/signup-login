@@ -10,10 +10,10 @@ import org.springframework.web.server.ResponseStatusException;
 @RestController
 @RequestMapping("/api/user")
 @CrossOrigin("http://localhost:4200")
-public class UserSignUpController {
+public class SignUpController {
     private UserServiceImpl repository;
 
-    UserSignUpController(UserServiceImpl repository){
+    SignUpController(UserServiceImpl repository){
         this.repository = repository;
     }
 

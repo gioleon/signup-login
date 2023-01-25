@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 
 import java.util.Arrays;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -23,15 +24,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void save(UserDTO userDTO){
+    public User save(UserDTO userDTO) {
         User user = new User(
                 userDTO.getName(), userDTO.getLastName(),
-                userDTO.getDateOfBirth(), userDTO.getEmail(),
-                userDTO.getPassword(),
-                Arrays.asList(new Rol(1,"ROLE_USER"))
+                userDTO.getEmail(), userDTO.getPassword(),
+                Arrays.asList(new Rol(1, "ROLE_USER"))
         );
 
         this.repository.save(user);
+
+        return user;
+    }
+
+    @Override
+    public Optional<User> findByEmail(String email) {
+        return this.repository.findByEmail(email);
     }
 
     @Override
