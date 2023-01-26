@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { UserDTO } from '../../interfaces/user.interface';
-import { UserService } from '../../services/user.service';
+import { SignUpService } from '../../services/signup.service';
+
 
 @Component({
   selector: 'app-signup',
@@ -19,10 +20,10 @@ export class SignupComponent {
 
   confirmPassword:string = '';
 
-  constructor(private userService: UserService) {}
+  constructor(private signUpService:SignUpService) {}
 
   saveUser() {
-    this.userService.saveUser(this.userDTO).subscribe({
+    this.signUpService.signup(this.userDTO).subscribe({
       next: () => {
         this.error = false;
       },
@@ -35,5 +36,7 @@ export class SignupComponent {
       email: '',
       password: '',
     };
+
+    this.confirmPassword = "";
   }
 }

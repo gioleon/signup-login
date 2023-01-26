@@ -6,12 +6,12 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class UserService {
+export class SignUpService {
   private apiUrl: string = 'http://localhost:8080';
 
   constructor(private http: HttpClient) {}
 
-  saveUser(user: UserDTO): Observable<UserDTO> {
+  signup(user: UserDTO): Observable<UserDTO> {
     const url: string = `${this.apiUrl}/api/signup`;
     return this.http.post<UserDTO>(url, user);
   }

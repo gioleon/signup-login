@@ -1,4 +1,8 @@
-<div class="main">
+<h1 class="title" routerLink="/home">Pragma SA</h1>
+
+<hr>
+
+<div class="form-container">
   <form (ngSubmit)="saveUser()" class="form">
     <div class="form-item-container">
       <label for="name" class="label">Name</label>
@@ -68,7 +72,7 @@
     <hr />
 
     <div class="already-account terms-info">
-      Already have an account? <a routerLink="/login">Log in</a>
+      Already have an account? <a routerLink="/login" class="link">Log in</a>
     </div>
   </form>
 </div>

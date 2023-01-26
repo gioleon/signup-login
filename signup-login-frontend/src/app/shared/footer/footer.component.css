@@ -1,0 +1,15 @@
+.footer {
+    background-color: black;
+    display: flex;
+    /* position: fixed; */
+    /* bottom: 0; */
+    /* width: 100%; */
+    padding: 10px;
+    align-items: center;
+    justify-content: center;
+} 
+
+.footer-img {
+    width: 40px;
+    margin: 0 10px;
+}

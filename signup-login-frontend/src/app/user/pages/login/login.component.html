@@ -1,1 +1,38 @@
-<p>login works!</p>
+<h1 class="title">Pragma SA</h1>
+
+<hr>
+
+<div class="main">
+    <div class="form-container">
+        <form (ngSubmit)="login()" class="form">
+          <div class="form-item-container">
+            <label for="email" class="label">Email</label>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              placeholder="username@yourcompany.com"
+              [(ngModel)]="userDTO.email"
+              class="form-item"
+            />
+          </div>
+          <div class="form-item-container">
+            <label for="password" class="label">Password</label>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              [(ngModel)]="userDTO.password"
+              class="form-item"
+            />
+          </div>  
+          <button type="submit" class="form-button">Login</button>
+      
+          <hr />
+          <div class="forgot-info link">
+            <span>Forgot your password? </span><a routerLink="/signup" class="link">Click here</a>
+          </div>
+        </form>
+      </div>
+      
+</div>

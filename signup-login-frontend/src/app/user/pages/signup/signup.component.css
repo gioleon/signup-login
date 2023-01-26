@@ -1,11 +1,22 @@
-.main {
+.title {
+    margin-left: 20px;
+    color: purple;
+    cursor: pointer;
+}
+
+hr {
+    margin: 0 10px;
+}
+
+.form-container {
     width: 65%;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 5px auto 5px auto;
-    height: 600px;
+    margin: 80px auto 0px auto;
+    padding: 30px;
     border: 1px solid rgb(200, 200, 200);
+    border-radius: 10px;
 }
 
 .form {
@@ -34,10 +45,12 @@
 .form-button {
     margin: 12px auto 0 auto;
     border: none;
+    width: 120px;
     border-radius: 5px;
     background-color: #3856e9;
     color: white;
     padding: 5px;   
+    cursor: pointer;
 }
 
 .password-info {
@@ -49,5 +62,14 @@
 .terms-info {
     font-size: 15px;
     margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+.link {
+    text-decoration: none;
+}
+
+a:visited {
+    color: blue;
 }
 
