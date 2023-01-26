@@ -7,27 +7,34 @@ import org.springframework.stereotype.Component;
 
 
 import java.util.Arrays;
+import java.util.List;
 
-//@Component
+@Component
 public class DefaultRoles {
 
     private RolServiceImpl repository;
 
-    public DefaultRoles(RolServiceImpl repository){
+    public DefaultRoles(RolServiceImpl repository) {
         this.repository = repository;
     }
 
 
     @PostConstruct
-    public void saveRoles(){
-        this.repository.saveAll(
-                Arrays.asList(
-                        new Rol(1, "ROLE_USER"),
-                        new Rol("ROLE_ADMIN")
-                )
-        );
-    }
+    public void saveRoles() {
 
+        List<Rol> roles = (List<Rol>) this.repository.findRoles();
+
+        if (roles.isEmpty()) {
+            this.repository.saveAll(
+                    Arrays.asList(
+                            new Rol(1, "ROLE_USER"),
+                            new Rol("ROLE_ADMIN")
+                    )
+            );
+        }
+
+
+    }
 
 
 }

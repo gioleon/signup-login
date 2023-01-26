@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 @RestController
-@RequestMapping("/api/user")
-@CrossOrigin("http://localhost:4200")
+@CrossOrigin("http://localhost:4200/")
+@RequestMapping("/api/signup")
 public class SignUpController {
     private UserServiceImpl repository;
 
@@ -17,12 +17,12 @@ public class SignUpController {
         this.repository = repository;
     }
 
-    @GetMapping()
+    @GetMapping
     public Iterable<User> findAll(){
         return this.repository.findUsers();
     }
 
-    @PostMapping("signup")
+    @PostMapping
     public void signUp(@RequestBody UserDTO userDTO) {
         if (!this.repository.userExists(userDTO.getEmail())) {
             this.repository.save(userDTO);

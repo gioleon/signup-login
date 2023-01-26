@@ -13,6 +13,10 @@ public class RolServiceImpl {
         this.repository = repository;
     }
 
+    public Iterable<Rol> findRoles(){
+        return this.repository.findAll();
+    }
+
     public void saveAll(Iterable<Rol> roles){
         this.repository.saveAll(roles);
     }

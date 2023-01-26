@@ -15,12 +15,12 @@ public class SecurityConfig {
 
     private CustomUserDetailService userDetailService;
 
-    SecurityConfig(CustomUserDetailService userDetailService){
+    SecurityConfig(CustomUserDetailService userDetailService) {
         this.userDetailService = userDetailService;
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
@@ -30,7 +30,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public DaoAuthenticationProvider daoAuthenticationProvider(){
+    public DaoAuthenticationProvider daoAuthenticationProvider() {
         DaoAuthenticationProvider auth = new DaoAuthenticationProvider();
 
         auth.setUserDetailsService(this.userDetailService);
@@ -40,10 +40,15 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity hhtp) throws Exception{
-        hhtp.authorizeHttpRequests().anyRequest().permitAll();
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+                .csrf().disable()
+                .authorizeHttpRequests()
+                .requestMatchers("/api/signup").permitAll()
+                .requestMatchers("/api/login").permitAll()
+                .anyRequest().authenticated();
 
-        return hhtp.build();
+        return http.build();
     }
 
 }
