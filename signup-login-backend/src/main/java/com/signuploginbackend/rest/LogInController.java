@@ -1,6 +1,10 @@
 package com.signuploginbackend.rest;
 
 import com.signuploginbackend.DTO.UserDTO;
+import com.signuploginbackend.security.config.CustomUserDetail;
+import com.signuploginbackend.security.config.CustomUserDetailService;
+import com.signuploginbackend.security.jwt.JwtTokenService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -8,6 +12,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -15,11 +20,13 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/login")
 public class LogInController {
 
+    @Autowired
     private AuthenticationManager authenticationManager;
+    @Autowired
+    private JwtTokenService jwtTokenService;
+    @Autowired
+    private CustomUserDetailService customUserDetailService;
 
-    LogInController(AuthenticationManager authenticationManager) {
-        this.authenticationManager = authenticationManager;
-    }
 
     @GetMapping
     public String helloLogin(){
@@ -27,7 +34,7 @@ public class LogInController {
     }
 
     @PostMapping
-    public ResponseEntity<HttpStatus> login(@RequestBody UserDTO userDTO) throws Exception {
+    public ResponseEntity<?> login(@RequestBody UserDTO userDTO) throws Exception {
         Authentication authentication;
 
         try {
@@ -38,7 +45,10 @@ public class LogInController {
         } catch (BadCredentialsException ex) {
             throw new Exception("BAD CREDENTIALS");
         }
-        return new ResponseEntity<HttpStatus>(HttpStatus.OK);
+        UserDetails userDetail = customUserDetailService
+                .loadUserByUsername(userDTO.getEmail());
+
+        return ResponseEntity.ok(this.jwtTokenService.generateToken(userDetail));
     }
 
 }
