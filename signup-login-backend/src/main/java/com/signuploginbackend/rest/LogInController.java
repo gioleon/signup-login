@@ -4,6 +4,7 @@ import com.signuploginbackend.DTO.UserDTO;
 import com.signuploginbackend.security.config.CustomUserDetail;
 import com.signuploginbackend.security.config.CustomUserDetailService;
 import com.signuploginbackend.security.jwt.JwtTokenService;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,13 +29,8 @@ public class LogInController {
     private CustomUserDetailService customUserDetailService;
 
 
-    @GetMapping
-    public String helloLogin(){
-        return "hello Login";
-    }
-
     @PostMapping
-    public ResponseEntity<?> login(@RequestBody UserDTO userDTO) throws Exception {
+    public ResponseEntity<HttpStatus> login(@RequestBody UserDTO userDTO, HttpServletResponse response) throws Exception {
         Authentication authentication;
 
         try {
@@ -48,7 +44,10 @@ public class LogInController {
         UserDetails userDetail = customUserDetailService
                 .loadUserByUsername(userDTO.getEmail());
 
-        return ResponseEntity.ok(this.jwtTokenService.generateToken(userDetail));
+        response.addHeader("token", this.jwtTokenService.generateToken(userDetail));
+        response.getWriter().flush();
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

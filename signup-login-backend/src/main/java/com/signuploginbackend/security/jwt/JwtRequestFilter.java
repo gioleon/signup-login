@@ -37,39 +37,28 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         final String header = request.getHeader(HttpHeaders.AUTHORIZATION);
 
         // Check if the token is valid
-        if (validToken(header)) {
+        if (header == null || !header.startsWith("Bearer ")) {
+
             filterChain.doFilter(request, response);
             return;
         }
 
-        // Check there is a username into the token
-        final String username = getUsernameFromToken(header);
-        if (username == null) {
+        String token = header.substring(7);
+
+        String username = this.jwtTokenService.validateTokenAndGetUsername(token);
+        if (username==null){
             filterChain.doFilter(request, response);
             return;
         }
 
-        // Load a user into the spring security context if exists.
-        final UserDetails userDetails = this.customUserDetailService.loadUserByUsername(username);
-        final UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-                userDetails, null, userDetails.getAuthorities());
+        final UsernamePasswordAuthenticationToken authenticationToken =
+                this.jwtTokenService.getAuthentication(username);
+
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 
-        authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+        authenticationToken.setDetails(
+                new WebAuthenticationDetailsSource().buildDetails(request));
+
         filterChain.doFilter(request, response);
-    }
-
-    public boolean validToken(String token) {
-        if (token == null || !token.contains("Bearer")) {
-            return false;
-        }
-        return true;
-    }
-
-    public String getUsernameFromToken(String token) {
-        String encryptedUsername = token.substring(7);
-        String username = this.jwtTokenService.validateTokenAndGetUsername(encryptedUsername);
-
-        return username;
     }
 }

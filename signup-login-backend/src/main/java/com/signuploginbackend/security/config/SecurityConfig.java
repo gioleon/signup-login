@@ -55,9 +55,9 @@ public class SecurityConfig {
         http
                 .csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/api/signup").permitAll()
                 .requestMatchers("/api/login").permitAll()
-                .anyRequest().hasRole("ROLE_USER")
+                .requestMatchers("/api/signup").permitAll()
+                .anyRequest().authenticated()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
