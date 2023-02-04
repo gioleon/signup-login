@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { UserDTO } from '../../interfaces/user.interface';
 import { SignUpService } from '../../services/signup.service';
+import { LoginService } from '../../services/login.service';
 
 
 @Component({

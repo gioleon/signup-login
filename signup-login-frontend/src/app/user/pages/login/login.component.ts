@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { UserDTO } from '../../interfaces/user.interface';
+import { Router } from '@angular/router';
+import { Credential } from '../../interfaces/user.interface';
 import { LoginService } from '../../services/login.service';
 
 @Component({
@@ -10,19 +11,27 @@ import { LoginService } from '../../services/login.service';
 export class LoginComponent {
   error: boolean = false;
 
-  userDTO: UserDTO = {
+  credentials: Credential = {
     email: '',
     password: '',
   };
 
-  constructor(private loginService: LoginService) {}
+  constructor(
+    private loginService: LoginService,
+    private router: Router
+  ) {
+  }
 
   login() {
-    this.loginService.login(this.userDTO).subscribe({
-      next: (response) => {
+    this.loginService.login(this.credentials).subscribe({
+      next: () => {
         this.error = false;
+        this.router.navigate(['/']);
       },
-      error: () => (this.error = true),
+      error: () => {
+        this.error = true;
+      },
     });
+    
   }
 }

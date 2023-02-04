@@ -1,1 +1,15 @@
-<p>home works!</p>
+<div *ngIf="userList.length == 0; else showTable">
+  No hay usuarios a mostrar
+</div>
+
+<ng-template #showTable>
+  <table>
+    <tr>
+      <th>email</th>
+    </tr>
+
+    <tr *ngFor="let userDTO of userList">
+      <td>{{ userDTO.email }}</td>
+    </tr>
+  </table>
+</ng-template>

@@ -4,3 +4,8 @@ export interface UserDTO {
     email:string;
     password:string;
 }
+
+export interface Credential {
+    email: string;
+    password: string;
+}
