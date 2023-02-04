@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 @RestController
-@CrossOrigin("http://localhost:4200/")
 @RequestMapping("/api/signup")
 public class SignUpController {
     private UserServiceImpl repository;

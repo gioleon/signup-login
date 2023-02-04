@@ -2,6 +2,7 @@ package com.signuploginbackend.rest;
 
 import com.signuploginbackend.model.User;
 import com.signuploginbackend.service.UserServiceImpl;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
